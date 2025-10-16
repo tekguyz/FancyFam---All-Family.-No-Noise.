@@ -42,18 +42,20 @@ const LandingPage: React.FC = () => {
             
             {/* Hero Section */}
             <section className="min-h-screen flex flex-col justify-center items-center pt-24 pb-16">
-                 <div className="w-48 h-auto mb-8 animate-fade-in-down">
-                    <Logo />
-                </div>
-                <h1 className="text-5xl md:text-8xl font-black text-primary mb-6 leading-tight animate-fade-in-down">
-                    All Family. No Noise.
-                </h1>
-                <p className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto mb-10 animate-fade-in-up">
-                    Your private, secure social network designed exclusively for your family. Share memories, plan events, and stay connected.
-                </p>
-                <div className="flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up">
-                    <Button onClick={handleEarlyAccess} variant="filled" className="w-full sm:w-auto">Early Access</Button>
-                    <Button onClick={handleViewDemo} variant="outlined" className="w-full sm:w-auto">View Demo</Button>
+                <div className="w-full max-w-4xl flex flex-col items-center">
+                    <div className="w-48 h-auto mb-8 animate-fade-in-down">
+                        <Logo />
+                    </div>
+                    <h1 className="text-5xl md:text-8xl font-black text-primary mb-8 leading-tight animate-fade-in-down">
+                        All Family. No Noise.
+                    </h1>
+                    <p className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto mb-12 animate-fade-in-up">
+                        Your private, secure social network designed exclusively for your family. Share memories, plan events, and stay connected.
+                    </p>
+                    <div className="w-full max-w-xs sm:max-w-none flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up">
+                        <Button onClick={handleEarlyAccess} variant="filled" className="w-full sm:w-auto">Early Access</Button>
+                        <Button onClick={handleViewDemo} variant="outlined" className="w-full sm:w-auto">View Demo</Button>
+                    </div>
                 </div>
                 <a 
                   href="#features" 

@@ -47,17 +47,43 @@ const FeedbackModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isO
       const { name, value } = e.target;
       setFormData(prev => ({ ...prev, [name]: value }));
   };
+  
+  const encode = (data: { [key: string]: string }) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+        .join("&");
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      console.log("Feedback Submitted:", { type: feedbackType, ...formData });
-      alert("Thank you for your feedback!");
-      onClose();
+    e.preventDefault();
+
+    const payload = {
+        'form-name': 'feedback',
+        feedbackType,
+        ...formData
+    };
+
+    fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode(payload)
+    })
+    .then(() => {
+        alert("Thank you for your feedback!");
+        onClose();
+    })
+    .catch(error => {
+        alert("Sorry, there was an error submitting your feedback. Please try again.");
+        console.error(error);
+    });
   };
 
   return (
     <Dialog isOpen={isOpen} onClose={onClose} title="Share Your Feedback">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} name="feedback" data-netlify="true">
+        <input type="hidden" name="form-name" value="feedback" />
+        <input type="hidden" name="feedbackType" value={feedbackType} />
+        
         <FeedbackTypeSelector selected={feedbackType} onSelect={setFeedbackType} />
         
         {feedbackType === 'bug' && (
@@ -81,7 +107,9 @@ const FeedbackModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isO
             </div>
         )}
 
-        <TextField id="email" name="email" type="email" label="Your Email (Optional)" value={formData.email} onChange={handleChange}/>
+        <div className="mt-4">
+            <TextField id="email" name="email" type="email" label="Your Email (Optional)" value={formData.email} onChange={handleChange}/>
+        </div>
         
         <div className="pt-4">
             <Button type="submit" variant="filled" className="w-full">Submit Feedback</Button>

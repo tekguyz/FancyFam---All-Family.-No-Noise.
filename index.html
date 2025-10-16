@@ -199,6 +199,20 @@
 </head>
   <body>
     <div id="root"></div>
+
+    <!-- Netlify Forms: Hidden form for submission capture -->
+    <form name="feedback" netlify netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="feedback" />
+        <input type="text" name="feedbackType" />
+        <input type="text" name="page" />
+        <textarea name="bugDescription"></textarea>
+        <textarea name="stepsToReproduce"></textarea>
+        <textarea name="featureDescription"></textarea>
+        <textarea name="featureBenefit"></textarea>
+        <textarea name="generalFeedback"></textarea>
+        <input type="email" name="email" />
+    </form>
+
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>

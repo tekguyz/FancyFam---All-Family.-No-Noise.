@@ -14,7 +14,7 @@ const AILegacyCard: React.FC = () => {
         setError('API Key is missing. Please configure it in your environment variables.');
         setIsLoading(false);
         // Fallback to a default message on error so the app doesn't feel broken
-        setSummary("A cherished memory of adventure and togetherness, rediscovered from a time of cool mountain air and warm family bonds.");
+        setSummary("A treasured memory of adventure and togetherness, rediscovered from a time of cool mountain air and warm family bonds.");
         return;
       }
 
@@ -42,7 +42,7 @@ const AILegacyCard: React.FC = () => {
         console.error("Error fetching summary from Gemini API:", e);
         setError('Could not generate AI summary. Please try again later.');
         // Fallback to a default message on error
-        setSummary("A cherished memory of adventure and togetherness, rediscovered from a time of cool mountain air and warm family bonds.");
+        setSummary("A treasured memory of adventure and togetherness, rediscovered from a time of cool mountain air and warm family bonds.");
       } finally {
         setIsLoading(false);
       }
@@ -65,7 +65,7 @@ const AILegacyCard: React.FC = () => {
     // The error is logged to the console for debugging.
     return (
         <p className="text-text-secondary">
-            <span className="font-bold text-text-secondary/80">[Gemini-Generated Summary]:</span> {summary}
+            {summary}
         </p>
     );
   }

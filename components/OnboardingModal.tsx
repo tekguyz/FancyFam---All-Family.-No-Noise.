@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChatMessage } from '../types';
 
 const initialMessages: ChatMessage[] = [
-    { id: 1, sender: 'bot', text: "Welcome to FancyFam's AI Assistant! I can help you get the most out of your family's space. To start, what's your first name?" }
+    { id: 1, sender: 'bot', text: "Hey there! Welcome to the FancyFam AI Assistant. I can help you set up and find your favorite memories. What name should I call you?" }
 ];
 
 const TypingIndicator: React.FC = () => (

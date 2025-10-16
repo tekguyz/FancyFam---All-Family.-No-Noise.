@@ -48,11 +48,11 @@ const ProfilePage: React.FC = () => {
             <div className="space-y-4 text-text">
                 <div>
                     <h4 className="font-semibold text-text-secondary">Favorite Family Memory</h4>
-                    <p>"Baking cookies with Grandma Eleanor every Christmas. The smell of gingerbread always takes me back."</p>
+                    <p>"Baking cookies with Grandma Elena every Christmas. The smell of gingerbread just takes me right back home."</p>
                 </div>
                 <div>
                     <h4 className="font-semibold text-text-secondary">Go-To Event Dish</h4>
-                    <p>"James's famous lasagna. It's a crowd-pleaser every single time!"</p>
+                    <p>"Javier's Famous Lasagna. Seriously, it disappears the moment it hits the table!"</p>
                 </div>
             </div>
         </InfoCard>

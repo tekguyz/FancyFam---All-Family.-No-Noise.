@@ -4,22 +4,22 @@ import TreeNode from '../components/TreeNode';
 
 const initialFamilyData: FamilyMember = {
   id: 1,
-  name: 'Richard',
-  spouse: 'Eleanor',
+  name: 'Ricardo',
+  spouse: 'Elena',
   children: [
     {
       id: 2,
-      name: 'James',
-      spouse: 'Mary',
+      name: 'Javier',
+      spouse: 'María',
       children: [
-        { id: 4, name: 'Robert', spouse: 'Linda' },
+        { id: 4, name: 'Roberto', spouse: 'Linda' },
         { id: 5, name: 'Patricia' },
       ],
     },
     {
       id: 3,
-      name: 'Susan',
-      spouse: 'Michael',
+      name: 'Susana',
+      spouse: 'Miguel',
       children: [
         { id: 6, name: 'Jennifer', spouse: 'William' },
         { id: 7, name: 'David' },
@@ -28,8 +28,8 @@ const initialFamilyData: FamilyMember = {
     },
      {
       id: 9,
-      name: 'Thomas',
-      spouse: 'Sarah',
+      name: 'Tomás',
+      spouse: 'Sara',
     },
   ],
 };

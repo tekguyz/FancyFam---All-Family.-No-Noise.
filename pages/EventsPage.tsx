@@ -5,35 +5,35 @@ import TransitionLink from '../components/TransitionLink';
 const mockEvents: Event[] = [
     {
         id: '1',
-        title: "Grandma's Birthday",
+        title: "Grandma Elena's Big 80",
         date: 'October 25th',
-        description: "Let's celebrate Grandma's 80th birthday with a big family dinner! We'll have cake, games, and lots of memories to share.",
+        description: "A massive celebration for Grandma's 80th! Formal family dinner—dress code is 'dress up a little.'",
         items: [
-            { id: '1-1', name: 'Birthday Cake', claimedBy: 'Susan', note: 'Chocolate with vanilla icing' },
+            { id: '1-1', name: "Grandma's Fave Cake", claimedBy: 'Susana', note: 'Chocolate with vanilla icing' },
             { id: '1-2', name: 'Balloons & Decorations', claimedBy: null, note: '' },
             { id: '1-3', name: 'Paper Plates & Utensils', claimedBy: null, note: '' },
-            { id: '1-4', name: 'Main Dish (Lasagna)', claimedBy: 'James', note: 'Making my famous recipe!' },
+            { id: '1-4', name: "Javier's Famous Lasagna", claimedBy: 'Javier', note: 'Making my famous recipe!' },
             { id: '1-5', name: 'Side Salad', claimedBy: null, note: '' },
         ],
     },
     {
         id: '2',
-        title: 'Family Reunion',
+        title: 'Annual Park Potluck',
         date: 'November 12th',
-        description: 'Our annual family reunion at the park. Potluck style, so bring your favorite dish to share!',
+        description: "The annual family reunion at the park. Bring your favorite dish, and let's hang out!",
         items: [
-            { id: '2-1', name: 'Grill Master (Burgers & Hot Dogs)', claimedBy: 'Richard', note: '' },
+            { id: '2-1', name: 'Grill Master (Burgers & Hot Dogs)', claimedBy: 'Ricardo', note: '' },
             { id: '2-2', name: 'Buns & Condiments', claimedBy: null, note: '' },
-            { id: '2-3', name: 'Potato Salad', claimedBy: 'Eleanor', note: '' },
+            { id: '2-3', name: "Elena's Classic Potato Salad", claimedBy: 'Elena', note: '' },
             { id: '2-4', name: 'Drinks Cooler', claimedBy: null, note: '' },
-            { id: '2-5', name: 'Frisbee & Lawn Games', claimedBy: 'Michael', note: '' },
+            { id: '2-5', name: 'Frisbee & Lawn Games', claimedBy: 'Miguel', note: '' },
         ]
     },
     {
         id: '3',
-        title: "Cousin's Wedding",
+        title: "Jen & Will's Wedding",
         date: 'December 3rd',
-        description: "Jennifer and William are getting married! Let's coordinate to get them a wonderful group gift.",
+        description: "Jennifer and William are getting married! Time to coordinate a killer group gift.",
         items: []
     }
 ];

@@ -13,21 +13,21 @@ const RightSidebar: React.FC = () => {
             <li className="flex items-center">
               <span className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0"></span>
               <div>
-                  <p className="font-semibold text-text">Grandma's Birthday</p>
+                  <p className="font-semibold text-text">Grandma Elena's Big 80</p>
                   <p className="text-text-secondary">October 25th</p>
               </div>
             </li>
             <li className="flex items-center">
               <span className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0"></span>
               <div>
-                  <p className="font-semibold text-text">Family Reunion</p>
+                  <p className="font-semibold text-text">Annual Park Potluck</p>
                   <p className="text-text-secondary">November 12th</p>
               </div>
             </li>
             <li className="flex items-center">
               <span className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0"></span>
               <div>
-                  <p className="font-semibold text-text">Cousin's Wedding</p>
+                  <p className="font-semibold text-text">Jen & Will's Wedding</p>
                   <p className="text-text-secondary">December 3rd</p>
               </div>
             </li>

@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
-import TransitionLink from '../components/TransitionLink';
+import { useAuth } from '../context/AuthContext';
 
 const HARDCODED_PASSCODE = 'FancyFam2025!';
 
@@ -11,6 +10,7 @@ const SignUpPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [familyPasscode, setFamilyPasscode] = useState('');
   const [error, setError] = useState('');
+  const { openSignInModal } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +24,11 @@ const SignUpPage: React.FC = () => {
     // Mock Supabase sign-up
     console.log('Signing up with:', { email, password });
     alert('Sign-up successful! (This is a mock-up)');
+  };
+  
+  const handleSignInClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    openSignInModal();
   };
 
   return (
@@ -64,9 +69,9 @@ const SignUpPage: React.FC = () => {
         </form>
         <p className="text-center mt-6 text-text-secondary">
           Already have an account?{' '}
-          <TransitionLink to="/signin" className="font-bold text-primary hover:underline">
+          <a href="#" onClick={handleSignInClick} className="font-bold text-primary hover:underline">
             Sign In
-          </TransitionLink>
+          </a>
         </p>
       </div>
     </div>

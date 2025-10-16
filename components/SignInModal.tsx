@@ -3,25 +3,24 @@ import Dialog from './Dialog';
 import TextField from './TextField';
 import Button from './Button';
 import TransitionLink from './TransitionLink';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 interface SignInModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onLoginSuccess: () => void;
 }
 
-const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
+const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Mock Supabase sign-in
     console.log('Signing in with:', { email, password });
-    login(); // Set authenticated state
+    onLoginSuccess(); // Set authenticated state
     onClose(); // Close the modal
     if (!document.startViewTransition) {
         navigate('/wall');

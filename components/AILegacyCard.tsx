@@ -1,6 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AILegacyCard: React.FC = () => {
+  const [summary, setSummary] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      // FIX: Safely access the API key to prevent a ReferenceError in the browser.
+      const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : undefined;
+
+      if (!apiKey) {
+        setError('API Key is missing. Please configure it in your environment variables.');
+        setIsLoading(false);
+        // Fallback to a default message on error so the app doesn't feel broken
+        setSummary("A cherished memory of adventure and togetherness, rediscovered from a time of cool mountain air and warm family bonds.");
+        return;
+      }
+
+      try {
+        // FIX: Dynamically import the library to prevent top-level errors from breaking the app load.
+        const { GoogleGenAI } = await import('@google/genai');
+        const ai = new GoogleGenAI({ apiKey });
+        
+        const memoryPrompt = `
+          You are a warm, sentimental AI family historian for an app called FancyFam.
+          Your task is to look at a user's post and write a short, nostalgic summary about the memory it represents.
+          Keep it under 50 words. Be evocative and focus on the feeling.
+
+          Here is the post content:
+          "Remember this view from our family trip to the mountains back in '05? Found this while going through old photo albums. Good times!"
+        `;
+
+        const response = await ai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: memoryPrompt,
+        });
+        
+        setSummary(response.text);
+      } catch (e) {
+        console.error("Error fetching summary from Gemini API:", e);
+        setError('Could not generate AI summary. Please try again later.');
+        // Fallback to a default message on error
+        setSummary("A cherished memory of adventure and togetherness, rediscovered from a time of cool mountain air and warm family bonds.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSummary();
+  }, []);
+
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div className="space-y-2">
+          <div className="w-full h-4 bg-surface-tonal rounded-full animate-pulse"></div>
+          <div className="w-5/6 h-4 bg-surface-tonal rounded-full animate-pulse"></div>
+          <div className="w-3/4 h-4 bg-surface-tonal rounded-full animate-pulse"></div>
+        </div>
+      );
+    }
+    // Do not show the raw error message to the user, but show the fallback summary.
+    // The error is logged to the console for debugging.
+    return (
+        <p className="text-text-secondary">
+            <span className="font-bold text-text-secondary/80">[Gemini-Generated Summary]:</span> {summary}
+        </p>
+    );
+  }
+
   return (
     <div className="bg-surface-tonal rounded-2xl p-6 shadow-md border-2 border-primary relative overflow-hidden animate-pulse-border">
       <div className="flex flex-col md:flex-row items-center gap-6">
@@ -24,9 +93,7 @@ const AILegacyCard: React.FC = () => {
           <p className="text-text font-semibold text-lg mb-2">
             A Throwback to the Mountain Trip of '05
           </p>
-          <p className="text-text-secondary">
-            <span className="font-bold text-text-secondary/80">[Gemini-Generated Summary]:</span> This photo captures the family's shared sense of adventure during the 2005 mountain trip. Susan's post sparked memories of cool morning hikes and cozy evenings by the fire, a cherished moment of togetherness and appreciation for nature.
-          </p>
+          {renderContent()}
         </div>
       </div>
     </div>

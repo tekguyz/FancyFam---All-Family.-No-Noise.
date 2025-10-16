@@ -25,6 +25,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       <SignInModal 
         isOpen={isSignInModalOpen} 
         onClose={closeSignInModal}
+        onLoginSuccess={login}
       />
     </AuthContext.Provider>
   );

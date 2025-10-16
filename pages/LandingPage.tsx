@@ -22,13 +22,6 @@ const icons = {
 const LandingPage: React.FC = () => {
   const { login, openSignInModal } = useAuth();
   const navigate = useNavigate();
-
-  const handleScrollToFeatures = () => {
-    const featuresSection = document.getElementById('features');
-    if (featuresSection) {
-      featuresSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
   
   const handleViewDemo = () => {
     login();
@@ -60,7 +53,21 @@ const LandingPage: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-4">
             <Button variant="filled" onClick={openSignInModal}>Early Access</Button>
             <Button variant="outlined" onClick={handleViewDemo}>View Demo</Button>
-            <Button variant="outlined" onClick={handleScrollToFeatures}>Our Features</Button>
+        </div>
+         <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+          <a 
+            href="#features" 
+            onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="text-primary/70 animate-bounce-slow block"
+            aria-label="Scroll to features"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
         </div>
       </section>
 

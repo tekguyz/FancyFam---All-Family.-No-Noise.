@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Dialog from './Dialog';
 
@@ -19,29 +18,53 @@ const HelpCenterModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ i
       <div className="flex flex-col h-full">
         {/* Tab Navigation */}
         <nav className="border-b-2 border-background -mt-6 -mx-6 px-6">
-          <button onClick={() => setActiveTab('quick-start')} className={tabButtonClasses('quick-start')}>
-            Quick Start
-          </button>
-          <button onClick={() => setActiveTab('changelog')} className={tabButtonClasses('changelog')}>
-            Changelog
-          </button>
+          <div role="tablist" aria-label="Help Center Tabs">
+            <button
+              role="tab"
+              aria-selected={activeTab === 'quick-start'}
+              aria-controls="quick-start-panel"
+              id="quick-start-tab"
+              onClick={() => setActiveTab('quick-start')}
+              className={tabButtonClasses('quick-start')}
+            >
+              Quick Start
+            </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'changelog'}
+              aria-controls="changelog-panel"
+              id="changelog-tab"
+              onClick={() => setActiveTab('changelog')}
+              className={tabButtonClasses('changelog')}
+            >
+              Changelog
+            </button>
+          </div>
         </nav>
 
         {/* Tab Content */}
         <div className="py-6 space-y-4 text-text-secondary">
-          {activeTab === 'quick-start' && (
-            <div>
-              <h3 className="text-xl font-bold text-text mb-2">Features Guide</h3>
-              <ul className="space-y-3 list-disc list-inside">
-                <li><strong className="text-text">Wall/Posts:</strong> Your family's private feed. Share updates, photos, and stories without any ads or algorithms.</li>
-                <li><strong className="text-text">Easy Event Planning:</strong> Organize birthdays and reunions with a shared "Bring Your Own" list to avoid duplicate efforts.</li>
-                <li><strong className="text-text">Memory Magic (AI):</strong> Our Gemini-powered AI helps summarize long stories and rediscover forgotten photos, making connections effortless.</li>
-                <li><strong className="text-text">Visualize Your Roots:</strong> Explore your heritage with an interactive family tree. Add new members and watch your history grow.</li>
-                <li><strong className="text-text">Security/Privacy:</strong> Your space is invite-only, protected by a family passcode. Your data is never sold or shared.</li>
-              </ul>
-            </div>
-          )}
-          {activeTab === 'changelog' && (
+          <div
+            id="quick-start-panel"
+            role="tabpanel"
+            aria-labelledby="quick-start-tab"
+            hidden={activeTab !== 'quick-start'}
+          >
+            <h3 className="text-xl font-bold text-text mb-2">Features Guide</h3>
+            <ul className="space-y-3 list-disc list-inside">
+              <li><strong className="text-text">Wall/Posts:</strong> Your family's private feed. Share updates, photos, and stories without any ads or algorithms.</li>
+              <li><strong className="text-text">Easy Event Planning:</strong> Organize birthdays and reunions with a shared "Bring Your Own" list to avoid duplicate efforts.</li>
+              <li><strong className="text-text">Memory Magic (AI):</strong> Our Gemini-powered AI helps summarize long stories and rediscover forgotten photos, making connections effortless.</li>
+              <li><strong className="text-text">Visualize Your Roots:</strong> Explore your heritage with an interactive family tree. Add new members and watch your history grow.</li>
+              <li><strong className="text-text">Security/Privacy:</strong> Your space is invite-only, protected by a family passcode. Your data is never sold or shared.</li>
+            </ul>
+          </div>
+          <div
+            id="changelog-panel"
+            role="tabpanel"
+            aria-labelledby="changelog-tab"
+            hidden={activeTab !== 'changelog'}
+          >
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-text">Version 1.2.0 - October 2025</h3>
@@ -59,7 +82,7 @@ const HelpCenterModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ i
                 </ul>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </Dialog>

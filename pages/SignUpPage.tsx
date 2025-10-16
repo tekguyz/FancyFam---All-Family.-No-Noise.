@@ -63,7 +63,7 @@ const SignUpPage: React.FC = () => {
             required
           />
 
-          {error && <p className="text-red-500 text-center">{error}</p>}
+          {error && <p role="alert" className="text-red-500 text-center">{error}</p>}
           
           <Button type="submit" variant="filled" className="w-full">
             Create Account

@@ -10,7 +10,7 @@ const TextareaField: React.FC<TextareaFieldProps> = ({ label, id, ...props }) =>
     <div className="relative">
       <textarea
         id={id}
-        className="block px-4 pb-2 pt-6 w-full text-lg text-text bg-surface/50 rounded-lg border-2 border-text-secondary appearance-none focus:outline-none focus:ring-0 focus:border-primary peer min-h-[120px]"
+        className="block px-4 pb-2 pt-6 w-full text-lg text-text bg-surface-tonal rounded-lg border-2 border-text-secondary/50 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer min-h-[120px]"
         placeholder=" "
         {...props}
       />

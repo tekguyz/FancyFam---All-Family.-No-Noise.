@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useId } from 'react';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface DialogProps {
   isOpen: boolean;
@@ -8,6 +9,9 @@ interface DialogProps {
 }
 
 const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, title, children }) => {
+  const containerRef = useFocusTrap<HTMLDivElement>(isOpen);
+  const titleId = useId();
+
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -35,14 +39,16 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, title, children }) => 
       onClick={onClose}
       aria-modal="true"
       role="dialog"
+      aria-labelledby={titleId}
     >
       <div
+        ref={containerRef}
         className="bg-surface rounded-3xl w-full max-w-md shadow-2xl flex flex-col max-h-[80vh] animate-fade-in-up"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="p-6 border-b border-text-secondary/20 flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-primary">{title}</h2>
-          <button onClick={onClose} aria-label="Close dialog" className="text-text-secondary hover:text-text p-1 rounded-full hover:bg-surface-tonal">
+          <h2 id={titleId} className="text-2xl font-bold text-primary">{title}</h2>
+          <button onClick={onClose} aria-label="Close dialog" className="text-text-secondary hover:text-text p-1 rounded-full hover:bg-surface-tonal focus:outline-none focus:ring-2 focus:ring-primary">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>

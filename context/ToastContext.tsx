@@ -10,7 +10,11 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 const ToastContainer: React.FC<{ toasts: ToastMessage[]; removeToast: (id: number) => void }> = ({ toasts, removeToast }) => {
     return (
-        <div className="fixed top-24 right-4 z-[100] space-y-3 w-full max-w-sm">
+        <div
+            aria-live="polite"
+            aria-atomic="true"
+            className="fixed top-24 right-4 z-[100] space-y-3 w-full max-w-sm"
+        >
             {toasts.map(toast => (
                 <Toast key={toast.id} message={toast} onDismiss={() => removeToast(toast.id)} />
             ))}

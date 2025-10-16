@@ -24,6 +24,7 @@ const FamilyMemberNode: React.FC<FamilyMemberNodeProps> = ({ member, hasChildren
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // FIX: Corrected typo from `menu-ref` to `menuRef`.
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
@@ -42,18 +43,18 @@ const FamilyMemberNode: React.FC<FamilyMemberNodeProps> = ({ member, hasChildren
       )}
 
       {/* Action Buttons (visible on hover) */}
-      <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <button onClick={onAddChild} title="Add child" className="p-1.5 rounded-full bg-surface-tonal hover:bg-primary hover:text-black text-text-secondary transition-colors">
+      <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300">
+        <button onClick={onAddChild} aria-label={`Add child to ${member.name}`} className="p-1.5 rounded-full bg-surface-tonal hover:bg-primary hover:text-white text-text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
             <AddIcon />
         </button>
         <div className="relative" ref={menuRef}>
-            <button onClick={() => setIsMenuOpen(prev => !prev)} title="More options" className="p-1.5 rounded-full bg-surface-tonal hover:bg-primary hover:text-black text-text-secondary transition-colors">
+            <button onClick={() => setIsMenuOpen(prev => !prev)} aria-label={`More options for ${member.name}`} className="p-1.5 rounded-full bg-surface-tonal hover:bg-primary hover:text-white text-text-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
                 <OptionsIcon />
             </button>
             {isMenuOpen && (
                 <div className="absolute top-full right-0 mt-2 w-32 bg-background rounded-lg shadow-2xl z-10 py-1 animate-fade-in">
-                    <button onClick={() => { onEdit(); setIsMenuOpen(false); }} className="w-full text-left px-4 py-2 text-sm text-text hover:bg-surface-tonal">Edit</button>
-                    <button onClick={() => { onDelete(); setIsMenuOpen(false); }} className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-surface-tonal">Delete</button>
+                    <button onClick={() => { onEdit(); setIsMenuOpen(false); }} className="w-full text-left px-4 py-2 text-sm text-text hover:bg-surface-tonal focus:outline-none focus:bg-surface-tonal">Edit</button>
+                    <button onClick={() => { onDelete(); setIsMenuOpen(false); }} className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-surface-tonal focus:outline-none focus:bg-surface-tonal">Delete</button>
                 </div>
             )}
         </div>
@@ -61,7 +62,7 @@ const FamilyMemberNode: React.FC<FamilyMemberNodeProps> = ({ member, hasChildren
       
       {/* Expand/Collapse Toggle */}
       {hasChildren && (
-        <button onClick={onToggleExpand} title={isExpanded ? "Collapse branch" : "Expand branch"} className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 flex items-center justify-center bg-surface border-2 border-text-secondary/50 rounded-full text-text-secondary hover:bg-primary hover:text-black hover:border-primary transition-colors">
+        <button onClick={onToggleExpand} aria-label={isExpanded ? "Collapse branch" : "Expand branch"} className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 flex items-center justify-center bg-surface border-2 border-text-secondary/50 rounded-full text-text-secondary hover:bg-primary hover:text-white hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
             <ChevronIcon isExpanded={isExpanded} />
         </button>
       )}

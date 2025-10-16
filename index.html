@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-ar" />
     <title>FancyFam - All Family. No Noise.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="FancyFam: Your private family network. A secure, invite-only space to share memories, plan events, and stay connected without the noise of public social media." />
@@ -121,6 +121,17 @@
         @apply bg-background text-text antialiased;
         transition: background-color 0.5s ease, color 0.5s ease;
       }
+      
+      /* FIX: Override browser autocomplete styles */
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      input:-webkit-autofill:active {
+          -webkit-text-fill-color: var(--color-text) !important;
+          -webkit-box-shadow: 0 0 0 30px var(--color-surface-tonal) inset !important;
+          box-shadow: 0 0 0 30px var(--color-surface-tonal) inset !important;
+          caret-color: var(--color-text) !important;
+      }
 
       /* View transition styles */
       ::view-transition-old(root),
@@ -217,7 +228,7 @@
     <div id="root"></div>
 
     <!-- Netlify Forms: Hidden form for submission capture -->
-    <form name="feedback" netlify netlify-honeypot="bot-field" hidden>
+    <form name="feedback" netlify netlify-honeypot="bot-field" hidden aria-hidden="true">
         <input type="hidden" name="form-name" value="feedback" />
         <input type="text" name="feedbackType" />
         <input type="text" name="page" />

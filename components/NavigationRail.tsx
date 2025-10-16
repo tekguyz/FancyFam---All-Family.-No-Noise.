@@ -11,7 +11,7 @@ const navItems = [
 ];
 
 const NavigationRail: React.FC = () => {
-  const linkClasses = "flex flex-col items-center justify-center p-3 rounded-xl transition-colors duration-200 w-full";
+  const linkClasses = "flex flex-col items-center justify-center p-3 rounded-xl transition-colors duration-200 w-full focus:outline-none focus:ring-2 focus:ring-primary/80";
   const activeClasses = "bg-primary/20 text-primary";
   const inactiveClasses = "text-text-secondary hover:bg-surface hover:text-text";
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 
 const HARDCODED_PASSCODE = 'FancyFam2025!';
 
@@ -11,6 +12,7 @@ const SignUpPage: React.FC = () => {
   const [familyPasscode, setFamilyPasscode] = useState('');
   const [error, setError] = useState('');
   const { openSignInModal } = useAuth();
+  const { showToast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ const SignUpPage: React.FC = () => {
 
     // Mock Supabase sign-up
     console.log('Signing up with:', { email, password });
-    alert('Sign-up successful! (This is a mock-up)');
+    showToast('Sign-up successful! Welcome to the family.', 'success');
   };
   
   const handleSignInClick = (e: React.MouseEvent) => {

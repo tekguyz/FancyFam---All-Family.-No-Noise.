@@ -3,6 +3,7 @@ import Dialog from './Dialog';
 import TextField from './TextField';
 import TextareaField from './TextareaField';
 import Button from './Button';
+import { useToast } from '../context/ToastContext';
 
 type FeedbackType = 'bug' | 'feature' | 'general';
 
@@ -42,6 +43,7 @@ const FeedbackModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isO
       generalFeedback: '',
       email: ''
   });
+  const { showToast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
@@ -69,11 +71,11 @@ const FeedbackModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isO
         body: encode(payload)
     })
     .then(() => {
-        alert("Thank you for your feedback!");
+        showToast("Thank you for your feedback!", 'success');
         onClose();
     })
     .catch(error => {
-        alert("Sorry, there was an error submitting your feedback. Please try again.");
+        showToast("Sorry, there was an error submitting your feedback.", 'error');
         console.error(error);
     });
   };

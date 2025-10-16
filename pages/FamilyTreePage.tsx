@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { FamilyMember } from '../types';
 import TreeNode from '../components/TreeNode';
+import { useToast } from '../context/ToastContext';
 
 const initialFamilyData: FamilyMember = {
   id: 1,
@@ -71,6 +72,7 @@ const deleteNode = (node: FamilyMember, memberId: number): FamilyMember | null =
 
 const FamilyTreePage: React.FC = () => {
     const [familyData, setFamilyData] = useState<FamilyMember>(initialFamilyData);
+    const { showToast } = useToast();
 
     const handleAddChild = useCallback((parentId: number) => {
         const name = prompt("Enter the new member's name:");
@@ -95,7 +97,7 @@ const FamilyTreePage: React.FC = () => {
 
     const handleDeleteMember = useCallback((memberId: number, memberName: string) => {
         if (memberId === familyData.id) {
-            alert("Cannot delete the root of the family tree.");
+            showToast("Cannot delete the root of the family tree.", 'error');
             return;
         }
         if (window.confirm(`Are you sure you want to delete ${memberName}? This action cannot be undone.`)) {
@@ -104,7 +106,7 @@ const FamilyTreePage: React.FC = () => {
                 return newTree!; // The root will not be deleted, so it won't be null
             });
         }
-    }, [familyData.id]);
+    }, [familyData.id, showToast]);
 
     return (
         <div className="text-center">

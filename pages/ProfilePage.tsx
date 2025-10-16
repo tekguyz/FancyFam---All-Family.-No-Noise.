@@ -5,21 +5,23 @@ import Button from '../components/Button';
 import { FacebookIcon, GooglePhotosIcon } from '../components/SocialIcons';
 import InfoCard from '../components/InfoCard';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 
 const ProfilePage: React.FC = () => {
   const [isIntegrationsModalOpen, setIsIntegrationsModalOpen] = useState(false);
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const { logout } = useAuth();
+  const { showToast } = useToast();
 
 
   const handleFacebookConnect = () => {
     console.log("Attempting to connect with Facebook...");
-    alert("Facebook integration coming soon!");
+    showToast("Facebook integration is coming soon!");
   };
 
   const handleGooglePhotosConnect = () => {
     console.log("Attempting to connect with Google Photos...");
-    alert("Google Photos integration coming soon!");
+    showToast("Google Photos integration is coming soon!");
   };
 
   return (

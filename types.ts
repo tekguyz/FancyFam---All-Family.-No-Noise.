@@ -14,7 +14,7 @@ export interface FamilyMember {
 export interface Post {
     id: string;
     author: {
-        name: string;
+        name:string;
         avatarUrl?: string;
     };
     timestamp: string;
@@ -44,4 +44,10 @@ export interface ChatMessage {
   text: string;
   sender: 'user' | 'bot';
   isTyping?: boolean;
+}
+
+export interface ToastMessage {
+  id: number;
+  message: string;
+  type: 'success' | 'info' | 'error';
 }

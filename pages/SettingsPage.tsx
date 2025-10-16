@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import { useTheme } from '../hooks/useTheme';
 import Button from '../components/Button';
 import Switch from '../components/Switch';
+import { useToast } from '../context/ToastContext';
 
 const SettingsPage: React.FC = () => {
   const { toggleTheme } = useTheme();
   const [eventReminders, setEventReminders] = useState(true);
   const [newPostAlerts, setNewPostAlerts] = useState(true);
   const [typographySize, setTypographySize] = useState('Medium');
+  const { showToast } = useToast();
 
   const handleDeleteAccount = () => {
     if (window.confirm('Are you sure you want to delete your account? This action is irreversible.')) {
-      alert('Account deletion functionality is not implemented yet.');
+      showToast('Account deletion functionality is not implemented yet.');
     }
   };
 

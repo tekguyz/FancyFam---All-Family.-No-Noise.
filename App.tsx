@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
 
 // Layouts & Components
 import AuthenticatedLayout from './components/Layout';
@@ -68,9 +69,11 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <HashRouter>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
+        <ToastProvider>
+            <AuthProvider>
+            <AppRoutes />
+            </AuthProvider>
+        </ToastProvider>
       </HashRouter>
     </ThemeProvider>
   );

@@ -1,86 +1,82 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import { BringYourOwnItem } from '../types';
+import Button from './Button';
+import TextField from './TextField';
 
 interface BringYourOwnListProps {
   initialItems: BringYourOwnItem[];
 }
 
 const BringYourOwnList: React.FC<BringYourOwnListProps> = ({ initialItems }) => {
-  const [items, setItems] = useState(initialItems);
-  const [flashedItemId, setFlashedItemId] = useState<string | null>(null);
+  const [items, setItems] = useState<BringYourOwnItem[]>(initialItems);
+  const [newItemName, setNewItemName] = useState('');
 
-  const handleClaimItem = (itemId: string) => {
-    setItems(prevItems =>
-      prevItems.map(item =>
-        item.id === itemId
-          ? { ...item, claimedBy: item.claimedBy ? null : 'You' } // Simple toggle for demo
-          : item
-      )
-    );
-    setFlashedItemId(itemId);
-  };
-  
-  const handleNoteChange = (itemId: string, note: string) => {
-    setItems(prevItems =>
-      prevItems.map(item =>
-        item.id === itemId ? { ...item, note } : item
-      )
-    );
-  };
-
-  useEffect(() => {
-    if (flashedItemId) {
-      const timer = setTimeout(() => setFlashedItemId(null), 700);
-      return () => clearTimeout(timer);
+  const handleClaim = (itemId: string) => {
+    const personName = prompt('What is your name?');
+    if (personName) {
+      setItems(currentItems =>
+        currentItems.map(item =>
+          item.id === itemId ? { ...item, claimedBy: personName } : item
+        )
+      );
     }
-  }, [flashedItemId]);
+  };
+
+  const handleAddItem = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newItemName.trim()) {
+      const newItem: BringYourOwnItem = {
+        id: Date.now().toString(),
+        name: newItemName.trim(),
+        claimedBy: null,
+        note: ''
+      };
+      setItems(currentItems => [...currentItems, newItem]);
+      setNewItemName('');
+    }
+  };
 
   return (
     <div className="bg-surface rounded-2xl p-6 shadow-md">
-      <h3 className="text-2xl font-bold text-text mb-4">"Bring Your Own" List</h3>
-      <ul className="space-y-4">
+      <h2 className="text-2xl font-bold text-text mb-4">What to Bring</h2>
+      <ul className="divide-y divide-background">
         {items.map(item => (
-          <li
-            key={item.id}
-            className={`p-3 rounded-lg transition-all ${flashedItemId === item.id ? 'animate-flash-update' : ''}`}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-              <div className="flex items-center flex-grow mb-2 sm:mb-0">
-                <input
-                  type="checkbox"
-                  id={`item-${item.id}`}
-                  checked={!!item.claimedBy}
-                  onChange={() => handleClaimItem(item.id)}
-                  className="w-6 h-6 rounded text-primary bg-background border-text-secondary/50 focus:ring-primary"
-                />
-                <label
-                  htmlFor={`item-${item.id}`}
-                  className={`ml-3 text-lg ${item.claimedBy ? 'line-through text-text-secondary' : 'text-text'}`}
-                >
-                  {item.name}
-                </label>
-              </div>
-
-              {item.claimedBy && (
-                <div className="flex-shrink-0 text-sm font-semibold bg-primary/20 text-primary py-1 px-3 rounded-full self-start sm:self-center">
-                  Claimed by: {item.claimedBy}
-                </div>
-              )}
+          <li key={item.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between">
+            <div>
+              <p className="text-lg font-semibold text-text">{item.name}</p>
+              {item.note && <p className="text-sm text-text-secondary">{item.note}</p>}
             </div>
-            {item.claimedBy === 'You' && (
-              <div className="mt-2 pl-9">
-                 <input
-                    type="text"
-                    value={item.note}
-                    onChange={(e) => handleNoteChange(item.id, e.target.value)}
-                    placeholder="Add a note for the host..."
-                    className="w-full text-sm bg-background border-2 border-text-secondary/30 rounded-md px-3 py-1.5 focus:outline-none focus:border-primary transition-colors"
-                />
-              </div>
+            {item.claimedBy ? (
+              <p className="mt-2 sm:mt-0 text-md font-bold text-primary text-left sm:text-right">
+                Brought by {item.claimedBy}
+              </p>
+            ) : (
+              <button
+                onClick={() => handleClaim(item.id)}
+                className="mt-2 sm:mt-0 px-4 py-1.5 text-sm font-semibold rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+              >
+                I'll Bring It!
+              </button>
             )}
           </li>
         ))}
       </ul>
+      
+      <form onSubmit={handleAddItem} className="mt-6 pt-6 border-t border-background">
+        <h3 className="text-xl font-bold text-text mb-3">Add something to the list?</h3>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex-grow">
+            <TextField
+              id="new-item"
+              label="Item Name"
+              value={newItemName}
+              onChange={e => setNewItemName(e.target.value)}
+            />
+          </div>
+          <Button type="submit" variant="outlined">Add Item</Button>
+        </div>
+      </form>
     </div>
   );
 };

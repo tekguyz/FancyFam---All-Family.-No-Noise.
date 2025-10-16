@@ -13,21 +13,25 @@ const AuthenticatedLayout: React.FC = () => {
       <Header showAuthControls={true} />
       
       <div className="container mx-auto px-6 pt-24 pb-24 md:pb-12">
-        <div className="flex justify-center gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-[68px_1fr] lg:grid-cols-[68px_1fr_300px] justify-center gap-8">
           
           {/* Left Navigation (Desktop) */}
-          <aside className="hidden md:block sticky top-24 h-full">
-             <NavigationRail />
+          <aside className="hidden md:block">
+             <div className="sticky top-24">
+                <NavigationRail />
+             </div>
           </aside>
 
           {/* Main Content */}
-          <main className="flex-grow max-w-3xl">
+          <main className="w-full max-w-3xl justify-self-center">
             <Outlet />
           </main>
           
           {/* Right Sidebar (Desktop) */}
-          <aside className="hidden lg:block sticky top-24 h-full w-[300px]">
-            <RightSidebar />
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+                <RightSidebar />
+            </div>
           </aside>
 
         </div>

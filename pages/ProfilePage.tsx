@@ -26,7 +26,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <>
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="w-full space-y-8">
         <h1 className="text-4xl font-bold text-text">Your Profile</h1>
         
         {/* Personal Info Card */}

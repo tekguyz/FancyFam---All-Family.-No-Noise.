@@ -7,7 +7,7 @@ const RightSidebar: React.FC = () => {
 
   return (
     <>
-      <div className="fixed w-[300px] space-y-6">
+      <div className="w-full space-y-6">
         <InfoCard title="Upcoming Events">
           <ul className="space-y-4 text-sm">
             <li className="flex items-center">

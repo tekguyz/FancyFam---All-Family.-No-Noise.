@@ -19,7 +19,7 @@ const SettingsPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-12">
+    <div className="w-full space-y-12">
       <h1 className="text-4xl font-bold text-text">Settings</h1>
 
       {/* Theme & Display Section */}

@@ -12,7 +12,7 @@ const EventDetailPage: React.FC = () => {
     }
 
     return (
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="w-full space-y-6">
             <header>
                 <h1 className="text-4xl font-bold text-primary">{event.title}</h1>
                 <p className="text-xl text-text-secondary font-semibold mt-1">{event.date}</p>

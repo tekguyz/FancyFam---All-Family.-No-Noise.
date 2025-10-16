@@ -12,13 +12,13 @@ interface FeatureCardProps {
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ headline, description, icon, visualization, to }) => {
   const cardContent = (
-    <div className="bg-surface rounded-2xl p-8 shadow-lg h-full flex flex-col text-center hover:shadow-primary/30 transition-shadow duration-300">
-      <div className="text-primary mx-auto mb-4">{icon}</div>
-      <h3 className="text-2xl font-bold mb-3">{headline}</h3>
-      <div className="flex-grow flex items-center justify-center my-4 min-h-[160px]">
+    <div className="bg-surface rounded-2xl p-6 shadow-lg h-full flex flex-col text-center hover:shadow-primary/30 transition-shadow duration-300">
+      <div className="text-primary mx-auto mb-3">{icon}</div>
+      <h3 className="text-xl font-bold mb-2">{headline}</h3>
+      <div className="flex-grow flex items-center justify-center my-3 min-h-[120px]">
         {visualization}
       </div>
-      <p className="text-text-secondary">{description}</p>
+      <p className="text-text-secondary text-sm">{description}</p>
     </div>
   );
 

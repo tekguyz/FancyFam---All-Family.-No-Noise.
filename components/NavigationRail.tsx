@@ -16,7 +16,7 @@ const NavigationRail: React.FC = () => {
   const inactiveClasses = "text-text-secondary hover:bg-surface hover:text-text";
 
   return (
-    <nav className="fixed top-24 w-[68px]">
+    <nav className="w-full">
       <div className="bg-surface rounded-2xl p-2 flex flex-col items-center space-y-2">
         {navItems.map(({ to, label, icon: Icon }) => (
           <NavLink

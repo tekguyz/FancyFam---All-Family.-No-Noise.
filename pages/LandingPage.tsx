@@ -100,7 +100,16 @@ const LandingPage: React.FC = () => {
                      <FeatureCard
                         icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a3.375 3.375 0 00-3.375-3.375S6.75 3.375 6.75 6.75v3.75m.75 4.5a3.375 3.375 0 006 0M6.75 10.5h.75m5.25 0h.75M10.5 10.5V15m0 0a3 3 0 003 3m-3-3a3 3 0 013-3m-3 3H9m3 0H9" /></svg>}
                         headline="Private & Secure"
-                        visualization={<div className="text-6xl">🔐</div>}
+                        visualization={
+                            <div className="relative">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-primary/20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                        }
                         description="Your family's space is invite-only, protected by a family passcode. We never sell or share your data."
                     />
                      <FeatureCard

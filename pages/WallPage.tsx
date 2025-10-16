@@ -35,7 +35,7 @@ const mockPosts: Post[] = [
 
 const WallPage: React.FC = () => {
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <div className="w-full space-y-6">
       <CreatePost />
       <AILegacyCard />
       {mockPosts.map(post => (

@@ -32,7 +32,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
         </div>
         <div>
           <p id={`post-author-${post.id}`} className="font-bold text-text">{post.author.name}</p>
-          <p className="text-sm text-text-secondary">{post.timestamp}</p>
+          <p className="text-xs text-text-secondary">{post.timestamp}</p>
         </div>
       </div>
 

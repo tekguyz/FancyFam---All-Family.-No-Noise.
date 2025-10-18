@@ -31,7 +31,7 @@ const ProfilePage: React.FC = () => {
         
         {/* Personal Info Card */}
         <InfoCard title="Personal Info">
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
                 <div className="w-20 h-20 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -39,9 +39,9 @@ const ProfilePage: React.FC = () => {
                 </div>
                 <div className="flex-grow">
                     <h2 className="text-2xl font-bold text-text">Your Name</h2>
-                    <p className="text-text-secondary">your.email@fancyfam.com</p>
+                    <p className="text-text-secondary break-words">your.email@fancyfam.com</p>
                 </div>
-                <Button onClick={() => setIsEditProfileModalOpen(true)} variant="outlined">Edit</Button>
+                <Button onClick={() => setIsEditProfileModalOpen(true)} variant="outlined" className="w-full sm:w-auto flex-shrink-0">Edit</Button>
             </div>
         </InfoCard>
 

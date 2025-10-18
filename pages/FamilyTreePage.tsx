@@ -3,6 +3,7 @@ import { FamilyMember } from '../types';
 import TreeNode from '../components/TreeNode';
 import { useToast } from '../context/ToastContext';
 import EmptyState from '../components/EmptyState';
+import CustomPrompt from '../components/CustomPrompt';
 
 // Represents a new family. In a real app, this would come from a database and could be null.
 const initialFamilyData: FamilyMember | null = null;
@@ -41,51 +42,106 @@ const deleteNode = (node: FamilyMember, memberId: number): FamilyMember | null =
     return node;
 };
 
+interface FieldConfig {
+  id: string;
+  label: string;
+  initialValue?: string;
+  required?: boolean;
+}
+
+interface PromptConfig {
+  isOpen: boolean;
+  title: string;
+  fields: FieldConfig[];
+  onSubmit: (values: Record<string, string>) => void;
+  submitText?: string;
+}
+
+const initialPromptConfig: PromptConfig = {
+  isOpen: false,
+  title: '',
+  fields: [],
+  onSubmit: () => {},
+  submitText: 'OK',
+};
+
 
 const FamilyTreePage: React.FC = () => {
     const [familyData, setFamilyData] = useState<FamilyMember | null>(initialFamilyData);
+    const [promptConfig, setPromptConfig] = useState<PromptConfig>(initialPromptConfig);
     const { showToast } = useToast();
 
+    const closePrompt = () => setPromptConfig(initialPromptConfig);
+
     const handleStartTree = () => {
-        const name = prompt("Enter the name of the first family member (e.g., a grandparent):");
-        if (name) {
-            const spouse = prompt("(Optional) Enter their spouse's name:");
-            const newRoot: FamilyMember = {
-                id: Date.now(),
-                name,
-                spouse: spouse || undefined,
-                children: []
-            };
-            setFamilyData(newRoot);
-            showToast(`Welcome, ${name}! Your family tree has begun.`, 'success');
-        }
+        setPromptConfig({
+            isOpen: true,
+            title: 'Start Your Family Tree',
+            fields: [
+                { id: 'name', label: "First member's name (e.g., a grandparent)", required: true },
+                { id: 'spouse', label: "(Optional) Spouse's name" },
+            ],
+            submitText: 'Create Tree',
+            onSubmit: ({ name, spouse }) => {
+                if (name) {
+                const newRoot: FamilyMember = {
+                    id: Date.now(),
+                    name,
+                    spouse: spouse || undefined,
+                    children: [],
+                };
+                setFamilyData(newRoot);
+                showToast(`Welcome, ${name}! Your family tree has begun.`, 'success');
+                }
+            },
+        });
     };
 
     const handleAddChild = useCallback((parentId: number) => {
-        const name = prompt("Enter the new member's name:");
-        if (name) {
-            const spouse = prompt("(Optional) Enter spouse's name:");
-            const newMember: FamilyMember = {
-                id: Date.now(),
-                name,
-                spouse: spouse || undefined,
-            };
-            setFamilyData(currentTree => {
-                if (!currentTree) return null;
-                return addNode(currentTree, parentId, newMember)
-            });
-        }
+        setPromptConfig({
+            isOpen: true,
+            title: 'Add a New Family Member',
+            fields: [
+                { id: 'name', label: "New member's name", required: true },
+                { id: 'spouse', label: "(Optional) Spouse's name" },
+            ],
+            submitText: 'Add Member',
+            onSubmit: ({ name, spouse }) => {
+                if (name) {
+                    const newMember: FamilyMember = {
+                        id: Date.now(),
+                        name,
+                        spouse: spouse || undefined,
+                    };
+                    setFamilyData(currentTree => {
+                        if (!currentTree) return null;
+                        return addNode(currentTree, parentId, newMember);
+                    });
+                    showToast(`${name} has been added to the family tree.`, 'success');
+                }
+            },
+        });
     }, []);
     
     const handleUpdateMember = useCallback((memberId: number, currentName: string, currentSpouse?: string) => {
-        const name = prompt("Enter the updated name:", currentName);
-        if (name) {
-            const spouse = prompt("(Optional) Enter updated spouse's name:", currentSpouse);
-            setFamilyData(currentTree => {
-                if (!currentTree) return null;
-                return updateNode(currentTree, memberId, name, spouse || undefined);
-            });
-        }
+        setPromptConfig({
+            isOpen: true,
+            title: `Editing ${currentName}`,
+            fields: [
+                { id: 'name', label: 'Name', initialValue: currentName, required: true },
+                { id: 'spouse', label: "(Optional) Spouse's name", initialValue: currentSpouse },
+            ],
+            submitText: 'Save Changes',
+            onSubmit: ({ name, spouse }) => {
+                if (name) {
+                    setFamilyData(currentTree => {
+                        if (!currentTree) return null;
+                        return updateNode(currentTree, memberId, name, spouse || undefined);
+                    });
+                    showToast('Family member updated.', 'success');
+                }
+            }
+        });
     }, []);
 
     const handleDeleteMember = useCallback((memberId: number, memberName: string) => {
@@ -145,6 +201,7 @@ const FamilyTreePage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <CustomPrompt {...promptConfig} onClose={closePrompt} />
         </div>
     );
 };
